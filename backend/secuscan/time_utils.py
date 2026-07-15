@@ -63,11 +63,14 @@ def parse_to_utc(value: Any) -> Optional[datetime]:
     return ensure_utc(parsed)
 
 
-def to_utc_iso(value: Any = None, *, timespec: str = "seconds") -> str:
+def to_utc_iso(value: Any = None, *, timespec: str = "auto") -> str:
     """Convert a value to an ISO-8601 UTC string with an explicit offset.
 
     ``None`` (or omitted) uses the current UTC time. Unparseable values fall
     back to ``utc_now()`` so API responses always include a timezone offset.
+
+    ``timespec="auto"`` preserves microseconds when present so callers that
+    compare against ``datetime.now(timezone.utc)`` stay consistent.
     """
     parsed = utc_now() if value is None else parse_to_utc(value)
     if parsed is None:
