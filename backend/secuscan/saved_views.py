@@ -10,11 +10,6 @@ from pydantic import BaseModel, Field, field_validator
 from .auth import get_current_owner, require_api_key
 from .database import get_db
 
-# Issue #1743: this router previously had no auth dependency and never
-# scoped queries by owner, so any caller (authenticated or not) could list,
-# rename, overwrite, or delete every user's saved views. It now requires the
-# same API key as the rest of the app and enforces per-owner isolation,
-# mirroring require_owned_task's pattern in routes.py.
 saved_views_router = APIRouter(
     prefix="/api/v1/saved-views",
     tags=["saved-views"],
