@@ -534,4 +534,3 @@ def test_plugin_loader_duplicate_identifier_diagnostics(tmp_path, caplog):
     assert any("duplicate_scanner" in msg for msg in error_logs)
     assert any(str(dir1) in msg or dir1.name in msg for msg in error_logs)
     assert any(str(dir2) in msg or dir2.name in msg for msg in error_logs)
-
